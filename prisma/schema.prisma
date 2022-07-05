@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model Courts {
+  Court_   String  @id(map: "PK__Courts") @map("Court ") @db.VarChar(255)
+  Building String? @db.NVarChar(255)
+  Room     Float?
+  Hours    String? @db.NVarChar(255)
+}
+
+model Judges {
+  BranchId           Float?
+  CourtOfficial      String  @id(map: "PK__Judges") @db.VarChar(255)
+  Judge              String? @db.NVarChar(255)
+  Deputy_Court_Clerk String? @map("Deputy Court Clerk") @db.NVarChar(255)
+  Department         String? @db.NVarChar(255)
+  Address            String? @db.NVarChar(255)
+  Room               Float?
+  Phone              String? @db.NVarChar(255)
+}
