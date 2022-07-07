@@ -1,11 +1,15 @@
+import Nav from "./Navigation";
+import styles from '../styles/Layout.module.css'
 
 const Layout = ({children}) => {
-    return(
-        <div>
-            <main>
+    return( <>
+        <Nav/>
+        <div className={styles.container}>
+            <main className={styles.main}>
                 {children}
             </main>
         </div>
+        </>
     )
 };
 

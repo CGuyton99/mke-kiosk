@@ -11,7 +11,7 @@ export const COLUMNS = [//this is an array of objects
     },
 
     {
-        Header: 'JUDGE',//we need a way to associate each column with the rows of data, for that we need to specify the accessor property for each column
+        Header: 'JUDGE',
         accessor: 'Judge'
     },
 

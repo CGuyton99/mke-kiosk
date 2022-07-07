@@ -1,42 +1,81 @@
-import Card from "../components/card";
-import Link from "next/link";
-// import '../styles/Home.module.css'
+import React, {useMemo} from "react";
+import { useTable } from "react-table";
+import { COLUMNS } from "../components/judgesColumns";
+import styles from '../styles/table.module.css';
 
+export const getServerSideProps = async() => {
+    const res = await fetch("http://localhost:3000/api/judgesApi");
+    const Judges = await res.json();
+    return {
+        props: {Judges},
+    };
+};
 
-export default function Court({court}) {
-    // console.table(judges);
-    // console.table(court);
-    return (
-        <div className="container">
-			<div className="row">
-			<Card
-				title = {<Link href = "http://localhost:3000/judgesPage">Courthouse</Link>}
-				// title={<a href = "http://localhost:3000/api/judges">Courthouse Offices</a>}
-				images="images/courthouse.png"
-				alt="courthouse"
-				
-				/>
-			<Card
-				//"Job Opportunities"
-				title={<Link href="https://county.milwaukee.gov/EN/Human-Resources">Job Opportunities</Link>}
-				images="../images/Job-Free-PNG.png"
-				alt="Jobs"
-				// link = "https://county.milwaukee.gov/EN/Human-Resources"
-				/>
-			<Card
-				title={<Link href="https://county.milwaukee.gov/EN/News--Events/Events">Events</Link>}
-				images="../images/EVENTS.png"
-				alt="events"
-			/>
-			<Card
-				title={<Link href="http://localhost:3000/courtPage">COUNTY SERVICES</Link>}
-				images="../images/MilwaukeeCountyLogo.png"
-				alt="county"
-				
-			/>
-			</div>
-		</div>            
-		
+export default function Judges({Judges}) {
+    // console.log(judges)
+    const columns = useMemo(() => COLUMNS, []); 
+    console.log(columns);
+    const data = useMemo (() => Judges, []);
+    console.log(data);
+
+    //CREATE A TABLE INSTANCE
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        rows,
+        prepareRow,
+    }    = useTable({
+
+        columns,//shorthand 
+        data
+    })
+
+    return(
+        <div className={styles.table}>
+            <table style={{width: "100%"}} {...getTableProps()}>
+        <thead>
+            {headerGroups.map((headerGroup) => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                    {headerGroup.headers.map((column) => (
+                        <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+                    ))}
+                </tr>    
+            ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+            {rows.map((row) => {
+                prepareRow(row)
+                return (
+                    <tr {...row.getRowProps()}>
+                        {row.cells.map((cell) => {
+                            return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                        })}
+                    </tr>
+                )
+            })}
+            <tr>
+                <td style={{}}></td>
+            </tr>
+        </tbody>
+    </table>
+		</div>
     )
-}
+}; 
 
+
+
+// import Judges,{ getServerSideProps } from "./directory"
+// import { useTable } from "react-table";
+// import { COLUMNS } from "../components/judgesColumns";
+// import styles from '../styles/table.module.css';
+
+// const b = getServerSideProps;
+// export default function a ()  {
+// 	return(
+// 		<div>
+// 			<Judges {b}/>
+// 			<>test</>
+// 		</div>
+// 	)
+// };
