@@ -4,15 +4,17 @@ import MilwaukeeCountyLogo from "../pages/assest/MilwaukeeCountyLogo.png";
 
 const Nav = () => {
     return (
-      <nav className={navStyles.nav}>
+      <nav className={navStyles.navbar}>
+        <div className="container">
         <div className="backbutton">
           {" "}
           <a href="javascript:history.back()">Return</a>
         </div>
         <div className="centeralign">
-          <a href="http://localhost:3000" className="resize">
+          <a href="http://localhost:3001" className="resize">
             <Image src={MilwaukeeCountyLogo} />
           </a>
+        </div>
         </div>
       </nav>
     );

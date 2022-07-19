@@ -32,6 +32,7 @@ export default function Judges({Judges}) {
     })
 
     return(
+        <div className="container1">
         <div className={styles.table}>
             <table style={{width: "100%"}} {...getTableProps()}>
         <thead>
@@ -54,12 +55,10 @@ export default function Judges({Judges}) {
                     </tr>
                 )
             })}
-            <tr>
-                <td style={{}}></td>
-            </tr>
         </tbody>
     </table>
 		</div>
+        </div>
     )
 }; 
 
